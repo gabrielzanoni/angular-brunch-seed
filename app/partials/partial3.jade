@@ -1,0 +1,7 @@
+div(ng-app='ng-app')
+  p this is third view
+  div(ng-controller='TestController')#_listviews
+    div(ng-repeat='model in collection')
+      a(ng-href="{{model.path}}") {{model.name}}
+
+.clear.line

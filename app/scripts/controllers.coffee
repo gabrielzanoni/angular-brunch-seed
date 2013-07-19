@@ -5,12 +5,13 @@
 angular.module('app.controllers', [])
 
 .controller('AppCtrl', [
-  '$scope'
-  '$location'
-  '$resource'
   '$rootScope'
+  '$location'
+  '$scope'
+  '$resource'
+  
 
-($scope, $location, $resource, $rootScope) ->
+($rootScope, $location, $scope, $resource) ->
 
   # Uses the url to determine if the selected
   # menu item should have the class active.
@@ -62,7 +63,7 @@ angular.module('app.controllers', [])
   ]
 
   $scope.addTodo = ->
-    $scope.todos.push
+    @todos.push
       text: $scope.todoText
       done: false
 
@@ -70,16 +71,36 @@ angular.module('app.controllers', [])
 
   $scope.remaining = ->
     count = 0
-    angular.forEach $scope.todos, (todo) ->
+    angular.forEach @todos, (todo) ->
       count += (if todo.done then 0 else 1)
 
     count
 
   $scope.archive = ->
-    oldTodos = $scope.todos
-    $scope.todos = []
+    oldTodos = @todos
+    @todos = []
     angular.forEach oldTodos, (todo) ->
       $scope.todos.push todo  unless todo.done
 
 ])
+
+.controller('TestController', [
+  '$scope'
+
+  ($scope) ->
+
+    $scope.collection = [
+      path: "#/view1"
+      name: "view1"
+    ,
+      path: "#/view2"
+      name: "view2"
+    ,
+      path: "#/todo"
+      name: "todo"
+    ]
+
+])
+
+
 
